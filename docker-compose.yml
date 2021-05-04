@@ -1,0 +1,62 @@
+version: '3.8'
+
+networks:
+    laravel:
+        name: laravel
+
+services:
+    nginx:
+        build: 
+            context: .
+            dockerfile: nginx.dockerfile
+        # image: nginx:stable-alpdine
+        container_name: nginx-xponect
+        depends_on:
+            - php 
+            - mysql
+        ports:
+            - 80:80
+            - 443:443
+        networks:
+            - laravel
+        volumes:
+            - ./src:/var/www/html
+            # - ./src:/usr/share/nginx/html
+
+    # apache:
+    #     build: 
+    #         context: .
+    #         dockerfile: apache.dockerfile
+    #     container_name: apache-xponect
+    #     ports:
+    #         - 80:80
+    #         - 443:443
+    #     networks:
+    #         - laravel
+    #     volumes:
+    #         - ./src:/var/www/html
+
+    php:
+        build:
+            context: .
+            dockerfile: php.dockerfile
+        container_name: php-xponect
+        networks:
+            - laravel
+        volumes:
+            - ./src:/var/www/html    
+
+    mysql:
+        image: mysql:5.7.33
+        container_name: mysql-xponect
+        ports:
+            - 4306:3306
+        environment: 
+            MYSQL_DATABASE: xponectdb
+            MYSQL_USER: xponectdev
+            MYSQL_PASSWORD: local
+            MYSQL_ROOT_PASSWORD: local
+        networks:
+            - laravel
+        volumes:
+            - ./mysql:/var/lib/mysql
