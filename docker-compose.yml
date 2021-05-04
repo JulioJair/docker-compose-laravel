@@ -60,3 +60,12 @@ services:
             - laravel
         volumes:
             - ./mysql:/var/lib/mysql
+            
+    composer:
+        image: composer:latest
+        container_name: composer-xponect
+        volumes:
+            - ./src:/var/www/html
+        working_dir: /var/www/html
+        networks:
+            - laravel
