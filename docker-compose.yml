@@ -10,7 +10,7 @@ services:
             context: .
             dockerfile: nginx.dockerfile
         # image: nginx:stable-alpdine
-        container_name: nginx-xponect
+        container_name: nginx-laravel
         depends_on:
             - php 
             - mysql
@@ -40,7 +40,7 @@ services:
         build:
             context: .
             dockerfile: php.dockerfile
-        container_name: php-xponect
+        container_name: php-laravel
         networks:
             - laravel
         volumes:
@@ -48,12 +48,12 @@ services:
 
     mysql:
         image: mysql:5.7.33
-        container_name: mysql-xponect
+        container_name: mysql-laravel
         ports:
             - 4306:3306
         environment: 
-            MYSQL_DATABASE: xponectdb
-            MYSQL_USER: xponectdev
+            MYSQL_DATABASE: laraveldb
+            MYSQL_USER: laravel
             MYSQL_PASSWORD: local
             MYSQL_ROOT_PASSWORD: local
         networks:
@@ -63,7 +63,7 @@ services:
             
     composer:
         image: composer:latest
-        container_name: composer-xponect
+        container_name: composer-laravel
         volumes:
             - ./src:/var/www/html
         working_dir: /var/www/html
