@@ -27,7 +27,7 @@ services:
     #     build: 
     #         context: .
     #         dockerfile: apache.dockerfile
-    #     container_name: apache-xponect
+    #     container_name: apache-laravel
     #     ports:
     #         - 80:80
     #         - 443:443
