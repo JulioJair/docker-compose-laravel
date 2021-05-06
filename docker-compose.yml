@@ -81,3 +81,13 @@ services:
             - ./src:/var/www/html
         working_dir: /var/www/html
         entrypoint: ["php", "artisan"]
+
+    npm:
+        image: node:current-alpine
+        container_name: npm-laravel
+        networks:
+            - laravel
+        volumes:
+            - ./src:/var/www/html
+        working_dir: /var/www/html
+        entrypoint: ['npm']
